@@ -1,0 +1,10 @@
+"service": "my-jovo-serverless-app"
+"frameworkVersion": "3"
+"package":
+  "artifact": "./bundle.zip"
+"provider":
+  "name": "aws"
+  "runtime": "nodejs12.x"
+"functions":
+  "handler":
+    "handler": "index.handler"

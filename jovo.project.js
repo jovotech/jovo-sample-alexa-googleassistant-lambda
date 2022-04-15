@@ -1,6 +1,7 @@
+const { ProjectConfig } = require('@jovotech/cli-core');
 const { GoogleAssistantCli } = require('@jovotech/platform-googleassistant');
 const { AlexaCli } = require('@jovotech/platform-alexa');
-const { ProjectConfig } = require('@jovotech/cli-core');
+const { ServerlessCli } = require('@jovotech/target-serverless');
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,9 @@ const project = new ProjectConfig({
 
     // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
     new AlexaCli({ locales: { en: ['en-US'] } }),
+
+    // @see https://www.jovo.tech/marketplace/target-serverless
+    new ServerlessCli(),
   ],
 });
 
