@@ -13,9 +13,12 @@ import { JovoDebugger } from '@jovotech/plugin-debugger';
 */
 app.configure({
   plugins: [
+    // @see https://www.jovo.tech/marketplace/db-filedb
     new FileDb({
       pathToFile: '../db/db.json',
     }),
+
+    // @see https://www.jovo.tech/docs/debugger
     new JovoDebugger(),
   ],
 });

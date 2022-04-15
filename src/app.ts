@@ -36,7 +36,10 @@ const app = new App({
   |
   */
   plugins: [
+    // @see https://www.jovo.tech/marketplace/platform-googleassistant
     new GoogleAssistantPlatform(),
+
+    // @see https://www.jovo.tech/marketplace/platform-alexa
     new AlexaPlatform({
       intentMap: { 'AMAZON.StopIntent': 'END', 'AMAZON.CancelIntent': 'END' },
     }),
