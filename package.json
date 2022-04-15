@@ -13,7 +13,9 @@
     "prebundle": "rimraf bundle",
     "postbundle": "cd bundle && bestzip ../bundle.zip * && cd ..",
     "bundle:dev": "npm run bundle -- src/app.dev.ts",
-    "eslint": "eslint src test --fix --ext .ts"
+    "eslint": "eslint src test --fix --ext .ts",
+    "start:prod": "tsc-watch --onSuccess \"node src/app.prod.ts --jovo-webhook\" --noClear",
+    "bundle:prod": "npm run bundle -- src/app.prod.ts"
   },
   "dependencies": {
     "@jovotech/db-filedb": "^4.0.0",
@@ -22,7 +24,9 @@
     "@jovotech/server-express": "^4.0.0",
     "source-map-support": "^0.5.19",
     "@jovotech/platform-alexa": "^4.2.8",
-    "@jovotech/platform-googleassistant": "^4.2.8"
+    "@jovotech/platform-googleassistant": "^4.2.8",
+    "@jovotech/db-dynamodb": "4.2.8",
+    "@jovotech/server-lambda": "4.2.8"
   },
   "devDependencies": {
     "@jovotech/cli-core": "^4.0.0",
