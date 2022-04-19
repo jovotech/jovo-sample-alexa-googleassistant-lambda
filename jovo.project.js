@@ -13,17 +13,50 @@ const { ServerlessCli } = require('@jovotech/target-serverless');
 |
 */
 const project = new ProjectConfig({
-  endpoint: '${JOVO_WEBHOOK_URL}',
   plugins: [
-    // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
-    new GoogleAssistantCli({ projectId: '<YOUR-PROJECT-ID>' }),
-
+    // Default configuration for Alexa: Map 'en' model to 'en-US'
     // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
     new AlexaCli({ locales: { en: ['en-US'] } }),
 
     // @see https://www.jovo.tech/marketplace/target-serverless
     new ServerlessCli(),
   ],
+
+  // @see https://www.jovo.tech/docs/project-config#staging
+  defaultStage: 'dev',
+  stages: {
+    dev: {
+      // @see https://www.jovo.tech/docs/webhook
+      endpoint: '${JOVO_WEBHOOK_URL}',
+
+      plugins: [
+        // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
+        new AlexaCli({
+          skillId: process.env.ALEXA_SKILL_ID_DEV,
+          askProfile: process.env.ALEXA_ASK_PROFILE_DEV,
+        }),
+
+        // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
+        new GoogleAssistantCli({ projectId: process.env.GOOGLE_ACTION_PROJECT_ID_DEV }),
+      ],
+    },
+    prod: {
+      plugins: [
+        // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
+        new AlexaCli({
+          skillId: process.env.ALEXA_SKILL_ID_PROD,
+          askProfile: process.env.ALEXA_ASK_PROFILE_PROD,
+          endpoint: process.env.LAMBDA_ARN_PROD,
+        }),
+
+        // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
+        new GoogleAssistantCli({
+          projectId: process.env.GOOGLE_ACTION_PROJECT_ID_PROD,
+          endpoint: process.env.LAMBDA_URL_PROD,
+        }),
+      ],
+    },
+  },
 });
 
 module.exports = project;
