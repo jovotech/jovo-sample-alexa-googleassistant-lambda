@@ -129,7 +129,7 @@ This guide will show you how to create two different [Google Action](https://www
 
 As explained in the [Jovo Google Assistant installation docs](https://www.jovo.tech/marketplace/platform-googleassistant#installation), you need to install the `gactions` CLI, ideally by following the [official documentation by Google](https://developers.google.com/assistant/actionssdk/gactions#install_the_gactions_command-line_tool).
 
-The [Actions on Google Console project](https://www.jovo.tech/marketplace/platform-googleassistant#actions-on-google-console-project) docs show you in detail how to then deploy the project. Since the Google Actions API doesn't allow for programmatic project creation, you need to [access the console](https://console.actions.google.com/) and create a project manually.
+The [Actions on Google Console project](https://www.jovo.tech/marketplace/platform-googleassistant#actions-on-google-console-project) docs show you in detail how to then deploy the project. Since the Google Actions API doesn't allow for programmatic project creation, you need to [access the console](https://console.actions.google.com/) and create a project manually. Learn more in the [official Google Assistant docs](https://developers.google.com/assistant/conversational/build/projects?tool=builder#create_a_project).
 
 Then copy the newly created project ID and add it to your `.env` file (after copying the [`.env.example`](./.env.example) file and renaming it to `.env`):
 
