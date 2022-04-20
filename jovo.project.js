@@ -18,17 +18,6 @@ const project = new ProjectConfig({
     // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
     new AlexaCli({ locales: { en: ['en-US'] } }),
 
-    // Default configuration for Google Assistant
-    // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
-    new GoogleAssistantCli({
-      files: {
-        // Workaround: Add manifest.yaml file, @see https://github.com/jovotech/jovo-framework/issues/1238
-        'manifest.yaml': {
-          version: '1.0',
-        },
-      },
-    }),
-
     // Default configuration for Serverless
     // @see https://www.jovo.tech/marketplace/target-serverless
     new ServerlessCli({
