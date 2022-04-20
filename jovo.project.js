@@ -29,8 +29,12 @@ const project = new ProjectConfig({
       },
     }),
 
+    // Default configuration for Serverless
     // @see https://www.jovo.tech/marketplace/target-serverless
-    new ServerlessCli(),
+    new ServerlessCli({
+      service: 'jovo-sample',
+      provider: { runtime: 'nodejs14.x' },
+    }),
   ],
 
   // @see https://www.jovo.tech/docs/project-config#staging
@@ -64,6 +68,22 @@ const project = new ProjectConfig({
         new GoogleAssistantCli({
           projectId: process.env.GOOGLE_ACTION_PROJECT_ID_PROD,
           endpoint: process.env.LAMBDA_URL_PROD,
+        }),
+
+        // @see https://www.jovo.tech/marketplace/target-serverless
+        new ServerlessCli({
+          provider: {
+            stage: 'prod',
+          },
+          functions: {
+            handler: {
+              events: [
+                {
+                  alexaSkill: process.env.ALEXA_SKILL_ID_PROD,
+                },
+              ],
+            },
+          },
         }),
       ],
     },
