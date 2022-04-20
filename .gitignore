@@ -6,3 +6,5 @@ bundle.zip
 dist/
 build/
 package-lock.json
+.serverless/
+serverless.yaml
