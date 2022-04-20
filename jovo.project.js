@@ -14,31 +14,37 @@ const { ServerlessCli } = require('@jovotech/target-serverless');
 */
 const project = new ProjectConfig({
   plugins: [
-    // Default configuration for Alexa: Map 'en' model to 'en-US'
+    // "Stageless" configuration for Alexa: Map 'en' model to 'en-US'
     // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
     new AlexaCli({ locales: { en: ['en-US'] } }),
 
-    // Default configuration for Serverless
+    // "Stageless" configuration for Serverless
     // @see https://www.jovo.tech/marketplace/target-serverless
     new ServerlessCli({
       service: 'jovo-sample',
       provider: {
         runtime: 'nodejs14.x',
-        iamRoleStatements: [
-          {
-            Effect: 'Allow',
-            Action: [
-              'dynamodb:CreateTable',
-              'dynamodb:Query',
-              'dynamodb:Scan',
-              'dynamodb:GetItem',
-              'dynamodb:PutItem',
-              'dynamodb:UpdateItem',
-              'dynamodb:DeleteItem',
+        iam: {
+          role: {
+            statements: [
+              {
+                Effect: 'Allow',
+                Action: [
+                  // @see https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Operations.html
+                  'dynamodb:CreateTable',
+                  'dynamodb:DescribeTable',
+                  'dynamodb:Query',
+                  'dynamodb:Scan',
+                  'dynamodb:GetItem',
+                  'dynamodb:PutItem',
+                  'dynamodb:UpdateItem',
+                  'dynamodb:DeleteItem',
+                ],
+                Resource: 'arn:aws:dynamodb:*:*:table/*',
+              },
             ],
-            Resource: '*',
           },
-        ],
+        },
       },
       functions: {
         handler: {
@@ -57,18 +63,21 @@ const project = new ProjectConfig({
       endpoint: '${JOVO_WEBHOOK_URL}',
 
       plugins: [
+        // Dev config for Alexa, gets merged into the stageless config
         // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
         new AlexaCli({
           skillId: process.env.ALEXA_SKILL_ID_DEV,
           askProfile: process.env.ALEXA_ASK_PROFILE_DEV,
         }),
 
+        // Dev config for Google Assistant
         // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
         new GoogleAssistantCli({ projectId: process.env.GOOGLE_ACTION_PROJECT_ID_DEV }),
       ],
     },
     prod: {
       plugins: [
+        // Prod config for Alexa, gets merged into the stageless config
         // @see https://www.jovo.tech/marketplace/platform-alexa/project-config
         new AlexaCli({
           skillId: process.env.ALEXA_SKILL_ID_PROD,
@@ -76,12 +85,14 @@ const project = new ProjectConfig({
           endpoint: process.env.LAMBDA_ARN_PROD,
         }),
 
+        // Prod config for Google Assistant
         // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
         new GoogleAssistantCli({
           projectId: process.env.GOOGLE_ACTION_PROJECT_ID_PROD,
           endpoint: process.env.LAMBDA_URL_PROD,
         }),
 
+        // Prod config for Serverless, gets merged into the stageless config
         // @see https://www.jovo.tech/marketplace/target-serverless
         new ServerlessCli({
           provider: {
