@@ -235,6 +235,8 @@ new ServerlessCli({
 }),
 ```
 
+On the first request, the Lambda will fail because of the DynamoDb table creation. On the next request, the table should be created and everything should work correctly.
+
 ## Next Steps
 
 Learn more about the Jovo app project structure and key concepts in the [Jovo getting started docs](https://www.jovo.tech/docs/getting-started).
