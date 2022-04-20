@@ -186,12 +186,26 @@ export AWS_SECRET_ACCESS_KEY=<your-secret-key-here>
 After doing so, you can create a `serverless.yaml` file and then bundle and deploy the code using the following commands:
 
 ```sh
-# Create serverless.yaml
-$ jovo build:serverless
+# Create serverless.yaml (stage: prod)
+$ jovo build:serverless --stage prod
 
 # Bundle and deploy code to AWS (stage: prod)
 $ jovo deploy:code serverless --stage prod
 ```
+
+If you run into any problems with the deployment, you can also use the following commands instead of `deploy:code serverless`:
+
+```sh
+# Bundle the prod stage source code
+$ npm run bundle:prod
+
+# Use the Serverless CLI for deployment
+$ serverless deploy
+```
+
+Learn more about the `npm` scripts in the [`package.json`](./package.json) file.
+
+After successful deployment, you should be able to see the created function in the [AWS Lambda console](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions). If you did not update the `service` name in `jovo.project.js`, it should be called `jovo-sample-prod-handler`.
 
 ## Next Steps
 
