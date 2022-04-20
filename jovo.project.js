@@ -34,6 +34,12 @@ const project = new ProjectConfig({
     new ServerlessCli({
       service: 'jovo-sample',
       provider: { runtime: 'nodejs14.x' },
+      functions: {
+        handler: {
+          url: true, // @see https://www.serverless.com/blog/aws-lambda-function-urls-with-serverless-framework
+          timeout: 7, // Sets the timeout to 7 seconds
+        },
+      },
     }),
   ],
 
