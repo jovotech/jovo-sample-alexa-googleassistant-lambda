@@ -207,6 +207,20 @@ Learn more about the `npm` scripts in the [`package.json`](./package.json) file.
 
 After successful deployment, you should be able to see the created function in the [AWS Lambda console](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions). If you did not update the `service` name in `jovo.project.js`, it should be called `jovo-sample-prod-handler`.
 
+Open the function, copy the ARN and add it to your `.env` file. This can then be used to rebuild and deploy your `prod` Alexa Skill with the Lambda function as endpoint.
+
+```
+LAMBDA_ARN_PROD=
+```
+
+The function URL (that was added using the `url: true` parameter in the Serverless config, learn more in the [official Serverless docs](https://www.serverless.com/blog/aws-lambda-function-urls-with-serverless-framework)) is a newly introduced feature by AWS that makes Lambda functions accessible to outside services without the need to add an API Gateway endpoint.
+
+Copy the function URL and add it to your `.env` file. This can then be used to rebuild and deploy your `prod` Google Action with the Lambda function as endpoint.
+
+```
+LAMBDA_URL_PROD=
+```
+
 ## Next Steps
 
 Learn more about the Jovo app project structure and key concepts in the [Jovo getting started docs](https://www.jovo.tech/docs/getting-started).
