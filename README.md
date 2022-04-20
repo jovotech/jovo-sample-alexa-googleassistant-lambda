@@ -221,6 +221,20 @@ Copy the function URL and add it to your `.env` file. This can then be used to r
 LAMBDA_URL_PROD=
 ```
 
+The `jovo.project.js` also includes the permissions to create and update a DynamoDb table. By default, the table will be called `jovo-sample-db`. You can also update it in the project config under the `prod` stage:
+
+```js
+new ServerlessCli({
+  provider: {
+    // ...
+    environment: {
+      DYNAMODB_TABLE_NAME: 'jovo-sample-db',
+    },
+  },
+  // ...
+}),
+```
+
 ## Next Steps
 
 Learn more about the Jovo app project structure and key concepts in the [Jovo getting started docs](https://www.jovo.tech/docs/getting-started).

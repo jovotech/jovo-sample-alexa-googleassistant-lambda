@@ -33,7 +33,24 @@ const project = new ProjectConfig({
     // @see https://www.jovo.tech/marketplace/target-serverless
     new ServerlessCli({
       service: 'jovo-sample',
-      provider: { runtime: 'nodejs14.x' },
+      provider: {
+        runtime: 'nodejs14.x',
+        iamRoleStatements: [
+          {
+            Effect: 'Allow',
+            Action: [
+              'dynamodb:CreateTable',
+              'dynamodb:Query',
+              'dynamodb:Scan',
+              'dynamodb:GetItem',
+              'dynamodb:PutItem',
+              'dynamodb:UpdateItem',
+              'dynamodb:DeleteItem',
+            ],
+            Resource: '*',
+          },
+        ],
+      },
       functions: {
         handler: {
           url: true, // @see https://www.serverless.com/blog/aws-lambda-function-urls-with-serverless-framework
@@ -80,6 +97,9 @@ const project = new ProjectConfig({
         new ServerlessCli({
           provider: {
             stage: 'prod',
+            environment: {
+              DYNAMODB_TABLE_NAME: 'jovo-sample-db',
+            },
           },
           functions: {
             handler: {
