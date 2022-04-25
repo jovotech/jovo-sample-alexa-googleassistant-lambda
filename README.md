@@ -172,7 +172,11 @@ LAMBDA_ARN_URL=
 
 ### AWS
 
-This guide will show you how to deploy the `prod` stage of your Jovo app to [AWS Lambda](https://www.jovo.tech/marketplace/server-lambda) using the [Serverless CLI](https://www.jovo.tech/marketplace/target-serverless).
+This guide will show you how to deploy the `prod` stage of your Jovo app to [AWS Lambda](https://www.jovo.tech/marketplace/server-lambda) using the [Jovo Serverless CLI integration](https://www.jovo.tech/marketplace/target-serverless). The Serverless CLI needs to be installed globally like this:
+
+```sh
+$ npm install -g serverless
+```
 
 Learn more about how to create an AWS account and making the security credentials available to the CLI in the [official Serverless docs](https://www.serverless.com/framework/docs/providers/aws/guide/credentials).
 
