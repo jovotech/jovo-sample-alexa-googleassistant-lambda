@@ -207,7 +207,7 @@ Learn more about the `npm` scripts in the [`package.json`](./package.json) file.
 
 After successful deployment, you should be able to see the created function in the [AWS Lambda console](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions). If you did not update the `service` name in `jovo.project.js`, it should be called `jovo-sample-prod-handler`.
 
-Open the function, copy the ARN and add it to your `.env` file. This can then be used to rebuild and deploy your `prod` Alexa Skill with the Lambda function as endpoint.
+To get information about your function, you can either open it in the console or run the `serverless info` command. Copy the ARN and add it to your `.env` file. This can then be used to rebuild and deploy your `prod` Alexa Skill with the Lambda function as endpoint.
 
 ```
 LAMBDA_ARN_PROD=
