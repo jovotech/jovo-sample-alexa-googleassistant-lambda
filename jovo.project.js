@@ -74,6 +74,15 @@ const project = new ProjectConfig({
         // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
         new GoogleAssistantCli({ projectId: process.env.GOOGLE_ACTION_PROJECT_ID_DEV }),
       ],
+
+      // @see https://www.jovo.tech/docs/project-config#models
+      models: {
+        override: {
+          en: {
+            invocation: 'my dev test app',
+          },
+        },
+      },
     },
     prod: {
       plugins: [

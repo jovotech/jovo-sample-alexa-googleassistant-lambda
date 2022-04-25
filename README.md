@@ -107,7 +107,7 @@ ALEXA_SKILL_ID_PROD=
 
 After running the command, the CLI will print out the Skill ID of the newly created project. To keep the deployment linked to this project, copy the ID and add it to the `.env` file.
 
-If you open the [Alexa Developer Console](https://developer.amazon.com/), you should now see your project named `jovo-sample-alexa-googleassistant-lambda` in the list of Alexa Skills. The endpoint should be your [Jovo Webhook URL](https://www.jovo.tech/docs/webhook). You can then open the testing tab and test the app using the invocation "_my test app_". Make sure that your local development server is running with `jovo run` before you start testing.
+If you open the [Alexa Developer Console](https://developer.amazon.com/), you should now see your project named `jovo-sample-alexa-googleassistant-lambda` in the list of Alexa Skills. The endpoint should be your [Jovo Webhook URL](https://www.jovo.tech/docs/webhook). You can then open the testing tab and test the app using the invocation "_my dev test app_" (the invocation name is a stage specific [model override](https://www.jovo.tech/docs/project-config#models) that is added in the [`jovo.project.js`](./jovo.project.js) file). Make sure that your local development server is running with `jovo run` before you start testing.
 
 The [`jovo.project.js`](./jovo.project.js) file uses `dev` as `defaultStage`, so if you want to deploy to the `prod` stage, you either need to update that property or add the `--stage` flag to the commands:
 
