@@ -69,7 +69,14 @@ Learn more below:
 
 ### Alexa Developer Console
 
-This guide will show you how to create two different [Alexa](https://www.jovo.tech/marketplace/platform-alexa) Skill projects in the Alexa Developer Console, one for the `dev` stage and one for the `prod` stage. It's also possible to stop after creating the `dev` Skill. More on that below.
+This guide will show you how to create two different [Alexa](https://www.jovo.tech/marketplace/platform-alexa) Skill projects in the Alexa Developer Console:
+
+- One for the `dev` stage called `Jovo Sample DEV` using the invocation name `my dev test app`
+- One for the `prod` stage called `Jovo Sample PROD` using the invocation name `my test app`
+
+It's also possible to stop after creating the `dev` Skill. More on that below.
+
+#### DEV Skill
 
 As explained in the [Jovo Alexa installation docs](https://www.jovo.tech/marketplace/platform-alexa#installation), first install the ASK CLI and configure it by linking it to your Amazon developer account:
 
@@ -85,7 +92,6 @@ If you want to deploy to your `default` ASK profile, you don't need to change an
 
 ```
 ALEXA_ASK_PROFILE_DEV=default
-ALEXA_ASK_PROFILE_PROD=default
 ```
 
 The [Alexa Developer Console project](https://www.jovo.tech/marketplace/platform-alexa#alexa-developer-console-project) docs show you in detail how to then deploy the project. Use the following two commands:
@@ -107,7 +113,9 @@ ALEXA_SKILL_ID_PROD=
 
 After running the command, the CLI will print out the Skill ID of the newly created project. To keep the deployment linked to this project, copy the ID and add it to the `.env` file.
 
-If you open the [Alexa Developer Console](https://developer.amazon.com/), you should now see your project named `jovo-sample-alexa-googleassistant-lambda` in the list of Alexa Skills. The endpoint should be your [Jovo Webhook URL](https://www.jovo.tech/docs/webhook). You can then open the testing tab and test the app using the invocation "_my dev test app_" (the invocation name is a stage specific [model override](https://www.jovo.tech/docs/project-config#models) that is added in the [`jovo.project.js`](./jovo.project.js) file). Make sure that your local development server is running with `jovo run` before you start testing.
+If you open the [Alexa Developer Console](https://developer.amazon.com/), you should now see your project named `Jovo Sample DEV` in the list of Alexa Skills. The endpoint should be your [Jovo Webhook URL](https://www.jovo.tech/docs/webhook). You can then open the testing tab and test the app using the invocation "_my dev test app_" (the invocation name is a stage specific [model override](https://www.jovo.tech/docs/project-config#models) that is added in the [`jovo.project.js`](./jovo.project.js) file). Make sure that your local development server is running with `jovo run` before you start testing.
+
+#### PROD Skill
 
 The [`jovo.project.js`](./jovo.project.js) file uses `dev` as `defaultStage`, so if you want to deploy to the `prod` stage, you either need to update that property or add the `--stage` flag to the commands:
 
@@ -119,15 +127,32 @@ $ jovo build:platform alexa --stage prod
 $ jovo deploy:platform alexa --stage prod
 ```
 
+If you want to deploy to your `default` ASK profile, you don't need to change anything. If you want to use a different profile, modify the following in your `.env` file (after copying the [`.env.example`](./.env.example) file and renaming it to `.env`):
+
+```
+ALEXA_ASK_PROFILE_PROD=default
+```
+
+After successful deployment, you should now see your project named `Jovo Sample PROD` in the list of Alexa Skills in the Alexa Developer Console.
+
 While the `dev` Alexa Skill uses the [Jovo Webhook](https://www.jovo.tech/docs/webhook) as [`endpoint`](https://www.jovo.tech/docs/project-config#endpoint), the code for the `prod` Skill will be hosted on [AWS](#aws). You need to deploy it and update the following property in your `.env` file:
 
 ```
-LAMBDA_ARN_PROD=
+LAMBDA_ARN_PROD=arn:aws:lambda:us-east-1:111111111111:function:jovo-sample-prod-handler
 ```
+
+It is necessary that you redeploy your Alexa Skill project again after updating the value above.
 
 ### Actions on Google Console
 
-This guide will show you how to create two different [Google Action](https://www.jovo.tech/marketplace/platform-googleassistant) projects in the Actions on Google Console, one for the `dev` stage and one for the `prod` stage. It's also possible to stop after creating the `dev` Action. More on that below.
+This guide will show you how to create two different [Google Action](https://www.jovo.tech/marketplace/platform-googleassistant) projects in the Actions on Google Console:
+
+- One for the `dev` stage called `Jovo Sample DEV` using the invocation name `my dev test app`
+- One for the `prod` stage called `Jovo Sample PROD` using the invocation name `my test app`
+
+It's also possible to stop after creating the `dev` Action. More on that below.
+
+#### DEV Action
 
 As explained in the [Jovo Google Assistant installation docs](https://www.jovo.tech/marketplace/platform-googleassistant#installation), you need to install the `gactions` CLI, ideally by following the [official documentation by Google](https://developers.google.com/assistant/actionssdk/gactions#install_the_gactions_command-line_tool).
 
@@ -137,7 +162,6 @@ Then copy the newly created project ID and add it to your `.env` file (after cop
 
 ```
 GOOGLE_ACTION_PROJECT_ID_DEV=
-GOOGLE_ACTION_PROJECT_ID_PROD=
 ```
 
 For now, you only need to fill in the field for the `dev` stage.
@@ -154,6 +178,8 @@ $ jovo deploy:platform googleAssistant
 
 After that, you can log see the changes in the Actions on Google console.
 
+#### PROD Action
+
 The [`jovo.project.js`](./jovo.project.js) file uses `dev` as `defaultStage`, so if you want to deploy to the `prod` stage, you either need to update that property or add the `--stage` flag to the commands:
 
 ```sh
@@ -164,11 +190,19 @@ $ jovo build:platform googleAssistant --stage prod
 $ jovo deploy:platform googleAssistant --stage prod
 ```
 
+For this to work, you need to create a project in the Actions on Google console as explained in the previous section, copy the newly created project ID and add it to your `.env` file:
+
+```
+GOOGLE_ACTION_PROJECT_ID_PROD=
+```
+
 While the `dev` Google Action uses the [Jovo Webhook](https://www.jovo.tech/docs/webhook) as [`endpoint`](https://www.jovo.tech/docs/project-config#endpoint), the code for the `prod` Action will be hosted on [AWS](#aws). You need to deploy it and update the following property in your `.env` file:
 
 ```
-LAMBDA_ARN_URL=
+LAMBDA_ARN_URL=https://abcdefghijklmnopqrstuvwxyz.lambda-url.us-east-1.on.aws/
 ```
+
+It is necessary that you redeploy your Google Action project again after updating the value above.
 
 ### AWS
 
@@ -211,10 +245,16 @@ Learn more about the `npm` scripts in the [`package.json`](./package.json) file.
 
 After successful deployment, you should be able to see the created function in the [AWS Lambda console](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions). If you did not update the `service` name in `jovo.project.js`, it should be called `jovo-sample-prod-handler`.
 
+If the deployment doesn't work, it's possibly because the value for the Alexa Skill ID (which is needed for the verification happening in the Alexa Skills Kit Trigger) is undefined in your `.env` file. To get started, you could copy the existing `dev` Alexa SKill ID into the field and swap it out at a later point after creating a `prod` Skill project.
+
+```
+ALEXA_SKILL_ID_PROD=
+```
+
 To get information about your function, you can either open it in the console or run the `serverless info` command. Copy the ARN and add it to your `.env` file. This can then be used to rebuild and deploy your `prod` Alexa Skill with the Lambda function as endpoint.
 
 ```
-LAMBDA_ARN_PROD=
+LAMBDA_ARN_PROD=arn:aws:lambda:us-east-1:111111111111:function:jovo-sample-prod-handler
 ```
 
 The function URL (that was added using the `url: true` parameter in the Serverless config, learn more in the [official Serverless docs](https://www.serverless.com/blog/aws-lambda-function-urls-with-serverless-framework)) is a newly introduced feature by AWS that makes Lambda functions accessible to outside services without the need to add an API Gateway endpoint.
@@ -222,7 +262,7 @@ The function URL (that was added using the `url: true` parameter in the Serverle
 Copy the function URL and add it to your `.env` file. This can then be used to rebuild and deploy your `prod` Google Action with the Lambda function as endpoint.
 
 ```
-LAMBDA_URL_PROD=
+LAMBDA_URL_PROD=https://abcdefghijklmnopqrstuvwxyz.lambda-url.us-east-1.on.aws/
 ```
 
 The `jovo.project.js` also includes the permissions to create and update a DynamoDb table. By default, the table will be called `jovo-sample-db`. You can also update it in the project config under the `prod` stage:

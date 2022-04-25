@@ -3,6 +3,9 @@ const { GoogleAssistantCli } = require('@jovotech/platform-googleassistant');
 const { AlexaCli } = require('@jovotech/platform-alexa');
 const { ServerlessCli } = require('@jovotech/target-serverless');
 
+// This name will appear in the Alexa and Actions on Google consoles
+const NAME = 'Jovo Sample';
+
 /*
 |--------------------------------------------------------------------------
 | JOVO PROJECT CONFIGURATION
@@ -68,11 +71,39 @@ const project = new ProjectConfig({
         new AlexaCli({
           skillId: process.env.ALEXA_SKILL_ID_DEV,
           askProfile: process.env.ALEXA_ASK_PROFILE_DEV,
+
+          // Overrides the skill.json to change the Skill name
+          // @see https://www.jovo.tech/marketplace/platform-alexa/project-config#files
+          files: {
+            'skill-package/skill.json': {
+              manifest: {
+                publishingInformation: {
+                  locales: {
+                    'en-US': {
+                      name: `${NAME} DEV`,
+                    },
+                  },
+                },
+              },
+            },
+          },
         }),
 
         // Dev config for Google Assistant
         // @see https://www.jovo.tech/marketplace/platform-googleassistant/project-config
-        new GoogleAssistantCli({ projectId: process.env.GOOGLE_ACTION_PROJECT_ID_DEV }),
+        new GoogleAssistantCli({
+          projectId: process.env.GOOGLE_ACTION_PROJECT_ID_DEV,
+
+          // Overrides the settings.yaml to change the Action name
+          // @see https://www.jovo.tech/marketplace/platform-alexa/project-config#files
+          files: {
+            'settings/settings.yaml': {
+              localizedSettings: {
+                displayName: `${NAME} DEV`,
+              },
+            },
+          },
+        }),
       ],
 
       // @see https://www.jovo.tech/docs/project-config#models
@@ -92,6 +123,22 @@ const project = new ProjectConfig({
           skillId: process.env.ALEXA_SKILL_ID_PROD,
           askProfile: process.env.ALEXA_ASK_PROFILE_PROD,
           endpoint: process.env.LAMBDA_ARN_PROD,
+
+          // Overrides the skill.json to change the Skill name
+          // @see https://www.jovo.tech/marketplace/platform-alexa/project-config#files
+          files: {
+            'skill-package/skill.json': {
+              manifest: {
+                publishingInformation: {
+                  locales: {
+                    'en-US': {
+                      name: `${NAME} PROD`,
+                    },
+                  },
+                },
+              },
+            },
+          },
         }),
 
         // Prod config for Google Assistant
@@ -99,6 +146,16 @@ const project = new ProjectConfig({
         new GoogleAssistantCli({
           projectId: process.env.GOOGLE_ACTION_PROJECT_ID_PROD,
           endpoint: process.env.LAMBDA_URL_PROD,
+
+          // Overrides the settings.yaml to change the Action name
+          // @see https://www.jovo.tech/marketplace/platform-alexa/project-config#files
+          files: {
+            'settings/settings.yaml': {
+              localizedSettings: {
+                displayName: `${NAME} PROD`,
+              },
+            },
+          },
         }),
 
         // Prod config for Serverless, gets merged into the stageless config
