@@ -1,6 +1,6 @@
 # Jovo v4 Sample: Alexa Skill & Google Action on AWS Lambda
 
-[![Jovo Framework](https://www.jovo.tech/img/github-header.png)](https://www.jovo.tech)
+[![Jovo Staging and Deployment Deep Dive](https://www.jovo.tech/img/jovo-staging-deep-dive.png)](https://www.youtube.com/watch?v=D4kYbr7Mm2s)
 
 <p>
 <a href="https://www.jovo.tech" target="_blank">Website</a> -  <a href="https://www.jovo.tech/docs" target="_blank">Docs</a> - <a href="https://www.jovo.tech/marketplace" target="_blank">Marketplace</a> - <a href="https://github.com/jovotech/jovo-v4-template" target="_blank">Template</a>   
@@ -13,6 +13,10 @@ This [Jovo `v4`](https://www.jovo.tech) sample app showcases the following featu
 - **Deployment**: Uses the [Serverless CLI](https://www.jovo.tech/marketplace/target-serverless) for AWS deployment.
 
 Learn how to get this project up and running in the [getting started](#getting-started) section. The [stages and deployment](#stages-and-deployment) section will help you deploy the project to the platform developer consoles and AWS.
+
+Watch the video here:
+
+https://www.youtube.com/watch?v=D4kYbr7Mm2s
 
 ## Getting Started
 
